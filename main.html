@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      .container{
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        position: relative;
+          }
+          #image{
+            width: 500px;
+            padding-top: 50px;
+          
+          }
+          p{
+            position: absolute;
+            font-family:BAHIJ NASSIM;
+            font-size: 30px;
+            font-weight: bold;
+            bottom:550px;
+            transition: 1s;
+            
+          }
+  
+        
+          @media  (Max-width:600px) {
+            #image{
+              
+                width: 400px
+                }
+          }
+        </style>
+</head>
+<body>
+    <div class="container">
+      <P></P>
+      <img id="image">
+    </div>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script>
+      
+      let image=document.getElementById('image');
+      function getcurrent()
+      {
+        let datanow
+        let randomnumber =Math.floor(Math.random()*8);
+        let randomnumber2 =Math.floor(Math.random()*2+8);
+
+        axios.get('http://api.timezonedb.com/v2.1/get-time-zone?key=4MNO3SZP7OFD&format=json&by=zone&zone=Africa/Tripoli')
+        .then(function (response) {
+        
+          datanow=new Date(response.data.formatted)
+          minutusnow=(datanow.getHours()*60)+datanow.getMinutes()
+
+          if(minutusnow>=1157)
+          {
+            image.src=`./image/${randomnumber}.jpg`;
+          }
+          else
+          {
+            image.src=`./image/${randomnumber2}.jpg`;
+          }
+      
+          ;
+        })
+        .catch(function (error) {
+        // handle error
+        console.log(error);
+        });
+      }
+      getcurrent()
+        
+      </script>
+</body>
+</html>
